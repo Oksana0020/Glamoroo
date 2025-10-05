@@ -5,6 +5,7 @@ const {
   getOrders,
   updateOrderStatus,
   getSingleOrder,
+  processOrderPayment,
 } = require("../controller/order.controller");
 
 // router
@@ -16,6 +17,8 @@ router.get("/orders", getOrders);
 router.get("/:id", getSingleOrder);
 // add a create payment intent
 router.post("/create-payment-intent", paymentIntent);
+// process payment with multiple methods
+router.post("/process-payment", processOrderPayment);
 // save Order
 router.post("/saveOrder", addOrder);
 // update status
