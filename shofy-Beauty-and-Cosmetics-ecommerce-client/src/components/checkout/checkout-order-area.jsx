@@ -161,6 +161,51 @@ const CheckoutOrderArea = ({ checkoutData }) => {
           <label htmlFor="cod">Cash on Delivery</label>
           <ErrorMsg msg={errors?.payment?.message} />
         </div>
+        
+        <div className="tp-checkout-payment-item">
+          <input
+            {...register(`payment`, {
+              required: `Payment Option is required!`,
+            })}
+            onClick={() => setShowCard(false)}
+            type="radio"
+            id="paypal"
+            name="payment"
+            value="PayPal"
+          />
+          <label htmlFor="paypal">PayPal</label>
+          <ErrorMsg msg={errors?.payment?.message} />
+        </div>
+        
+        <div className="tp-checkout-payment-item">
+          <input
+            {...register(`payment`, {
+              required: `Payment Option is required!`,
+            })}
+            onClick={() => setShowCard(false)}
+            type="radio"
+            id="apple_pay"
+            name="payment"
+            value="Apple Pay"
+          />
+          <label htmlFor="apple_pay">Apple Pay</label>
+          <ErrorMsg msg={errors?.payment?.message} />
+        </div>
+        
+        <div className="tp-checkout-payment-item">
+          <input
+            {...register(`payment`, {
+              required: `Payment Option is required!`,
+            })}
+            onClick={() => setShowCard(false)}
+            type="radio"
+            id="google_pay"
+            name="payment"
+            value="Google Pay"
+          />
+          <label htmlFor="google_pay">Google Pay</label>
+          <ErrorMsg msg={errors?.payment?.message} />
+        </div>
       </div>
 
       <div className="tp-checkout-btn-wrapper">

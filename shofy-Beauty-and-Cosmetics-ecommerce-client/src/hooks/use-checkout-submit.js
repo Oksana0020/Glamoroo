@@ -254,6 +254,88 @@ const useCheckoutSubmit = () => {
         }
       })
     }
+    if (data.payment === 'PayPal') {
+      try {
+        // Redirect to PayPal for payment
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/order/process-payment`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            paymentMethod: 'PayPal',
+            orderData: {
+              total: cartTotal,
+              items: cart_products,
+              orderId: Date.now().toString()
+            }
+          })
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          // Save order first
+          saveOrder({
+            ...orderInfo,
+            paymentStatus: 'pending'
+          }).then(res => {
+            if (!res?.error) {
+              // Redirect to PayPal
+              window.location.href = result.data.approvalUrl;
+            }
+          });
+        } else {
+          notifyError('PayPal payment setup failed');
+          setIsCheckoutSubmit(false);
+        }
+      } catch (error) {
+        notifyError('PayPal payment failed');
+        setIsCheckoutSubmit(false);
+      }
+    }
+    if (data.payment === 'Apple Pay' || data.payment === 'Google Pay') {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/order/process-payment`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            paymentMethod: data.payment,
+            orderData: {
+              total: cartTotal,
+              items: cart_products,
+              orderId: Date.now().toString()
+            }
+          })
+        });
+        
+        const result = await response.json();
+        if (result.success) {
+          // Handle wallet payment confirmation
+          const orderData = {
+            ...orderInfo,
+            paymentIntent: result.data,
+          };
+          
+          saveOrder(orderData).then(res => {
+            if (!res?.error) {
+              localStorage.removeItem("cart_products");
+              localStorage.removeItem("couponInfo");
+              setIsCheckoutSubmit(false);
+              notifySuccess("Your Order Confirmed!");
+              router.push(`/order/${res.data?.order?._id}`);
+            }
+          });
+        } else {
+          notifyError(`${data.payment} payment failed`);
+          setIsCheckoutSubmit(false);
+        }
+      } catch (error) {
+        notifyError(`${data.payment} payment failed`);
+        setIsCheckoutSubmit(false);
+      }
+    }
   };
 
   // handlePaymentWithStripe
