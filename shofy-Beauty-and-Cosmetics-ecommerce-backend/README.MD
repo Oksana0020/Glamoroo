@@ -120,9 +120,47 @@ To get started with Shofy, follow these steps:
 - Google Fonts
 - Free Font Awesome Icons by Fontawesome
 
-## Thank You for Choosing Shofy!
+## Running Tests
 
-We hope you find Shofy to be a powerful and effective solution for your eCommerce needs. Should you encounter
+Shofy includes comprehensive test suites for all payment methods and core functionality.
 
- any issues or have any questions, please feel free to reach out to our support team at swe.hamedhasan@gmail.com. Happy selling!
+**Tests:**
+- `tests/payment.simple.test.js` - Unit tests for payment methods
+- `tests/paypal.service.test.js` - PayPal integration tests
+- `tests/stripe.integration.test.js` - Stripe integration tests
+- `tests/order.api.test.js` - API endpoint tests
+- `tests/e2e.payment.test.js` - End-to-end payment flow tests
+
+**Testing Tools:**
+- `manual-test-payments.js` - Manual testing script
+- `test-payments.js` - Automated test runner
+
+### Test Commands
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+
+# Run specific test files
+npm test payment.test.js
+npm test paypal.service.test.js
+npm test stripe.integration.test.js
+```
+
+### Test Coverage
+
+The test suite includes:
+- **Unit Tests**: Payment service functions, utilities and helpers
+- **Integration Tests**: API endpoints and database operations
+- **Payment Tests**: All payment methods (Stripe, PayPal, Apple Pay, Google Pay, Cash on Delivery)
+- **E2E Tests**: Complete order flow from cart to payment completion
+
+
+
  

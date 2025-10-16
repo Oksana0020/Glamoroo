@@ -3,7 +3,6 @@ const stripe = require("stripe")(secret.stripe_key);
 const Order = require("../model/Order");
 const { processPayment } = require("../services/payment.service");
 
-// create-payment-intent
 exports.paymentIntent = async (req, res, next) => {
   try {
     const product = req.body;

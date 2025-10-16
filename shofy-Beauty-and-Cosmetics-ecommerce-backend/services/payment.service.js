@@ -1,7 +1,6 @@
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 const { createPayPalOrder, capturePayPalPayment } = require('./paypal.service');
 
-// Process payment based on method
 const processPayment = async (paymentMethod, orderData) => {
   switch (paymentMethod) {
     case 'Card':
@@ -31,11 +30,11 @@ const processPayment = async (paymentMethod, orderData) => {
   }
 };
 
-// Process Stripe payment fCredit Card)
+// Process Stripe payment for Credit Card
 const processStripePayment = async (orderData) => {
   try {
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(orderData.total * 100), // Convert to cents
+      amount: Math.round(orderData.total * 100), // converting to cents
       currency: 'usd',
       metadata: {
         orderId: orderData.orderId
