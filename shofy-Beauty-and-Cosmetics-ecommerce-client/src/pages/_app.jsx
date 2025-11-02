@@ -5,6 +5,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import '../styles/index.scss';
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { TranslationProvider } from "@/contexts/TranslationContext";
 if (typeof window !== "undefined") {
   require("bootstrap/dist/js/bootstrap");
 }
@@ -22,9 +23,11 @@ export default function App({ Component, pageProps }) {
     <GoogleOAuthProvider clientId={NEXT_PUBLIC_GOOGLE_CLIENT_ID}>
       <Provider store={store}>
         <Elements stripe={stripePromise}>
-          <div id="root">
-            <Component {...pageProps} />
-          </div>
+          <TranslationProvider>
+            <div id="root">
+              <Component {...pageProps} />
+            </div>
+          </TranslationProvider>
         </Elements>
       </Provider>
     </GoogleOAuthProvider>
