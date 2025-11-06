@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 const CommonBreadcrumb = ({
   title,
@@ -6,6 +7,8 @@ const CommonBreadcrumb = ({
   center = false,
   bg_clr = false,
 }) => {
+  const { t } = useTranslation();
+  
   return (
     <section
       className={`breadcrumb__area ${
@@ -20,7 +23,7 @@ const CommonBreadcrumb = ({
               <h3 className="breadcrumb__title">{title}</h3>
               <div className="breadcrumb__list">
                 <span>
-                  <a href="#">Home</a>
+                  <a href="#">{t('nav.home')}</a>
                 </span>
                 <span>{subtitle}</span>
               </div>

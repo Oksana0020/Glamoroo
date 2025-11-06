@@ -5,9 +5,11 @@ import Link from "next/link";
 // internal
 import { Close, Minus, Plus } from "@/svg";
 import { add_cart_product, quantityDecrement, remove_product } from "@/redux/features/cartSlice";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 const CartItem = ({product}) => {
   const {_id, img,title,price, orderQuantity = 0 } = product || {};
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
@@ -57,7 +59,7 @@ const CartItem = ({product}) => {
       <td className="tp-cart-action">
         <button onClick={()=> handleRemovePrd({title,id:_id})} className="tp-cart-action-btn">
           <Close />
-          <span>{" "}Remove</span>
+          <span>{" "}{t('cart.remove')}</span>
         </button>
       </td>
     </tr>
