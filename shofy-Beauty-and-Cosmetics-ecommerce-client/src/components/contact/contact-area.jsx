@@ -5,8 +5,11 @@ import ContactForm from "../forms/contact-form";
 import contact_icon_1 from "@assets/img/contact/contact-icon-1.png";
 import contact_icon_2 from "@assets/img/contact/contact-icon-2.png";
 import contact_icon_3 from "@assets/img/contact/contact-icon-3.png";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 const ContactArea = () => {
+  const { t } = useTranslation();
+  
   return (
     <>
       <section className="tp-contact-area pb-100">
@@ -15,7 +18,7 @@ const ContactArea = () => {
             <div className="row">
               <div className="col-xl-9 col-lg-8">
                 <div className="tp-contact-wrapper">
-                  <h3 className="tp-contact-title">Sent A Message</h3>
+                  <h3 className="tp-contact-title">{t('contact.sendMessage')}</h3>
 
                   <div className="tp-contact-form">
                     {/* form start */}
@@ -68,7 +71,7 @@ const ContactArea = () => {
                     <div className="tp-contact-info-content">
                       <div className="tp-contact-social-wrapper mt-5">
                         <h4 className="tp-contact-social-title">
-                          Find on social media
+                          {t('contact.findOnSocial')}
                         </h4>
 
                         <div className="tp-contact-social-icon">

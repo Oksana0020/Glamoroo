@@ -3,9 +3,18 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoggedOut } from "@/redux/features/auth/authSlice";
+import { useTranslation } from "@/contexts/TranslationContext";
 
-// language
 function Language({active,handleActive}) {
+  const { currentLanguage, changeLanguage, supportedLanguages } = useTranslation();
+  
+  const currentLangName = supportedLanguages.find(lang => lang.code === currentLanguage)?.nativeName || 'English';
+  
+  const handleLanguageClick = (langCode) => {
+    changeLanguage(langCode);
+    handleActive(''); // Close dropdown
+  };
+
   return (
     <div className="tp-header-top-menu-item tp-header-lang">
       <span
@@ -13,18 +22,23 @@ function Language({active,handleActive}) {
         className="tp-header-lang-toggle"
         id="tp-header-lang-toggle"
       >
-        English
+        {currentLangName}
       </span>
       <ul className={active === 'lang' ? "tp-lang-list-open" : ""}>
-        <li>
-          <a href="#">Spanish</a>
-        </li>
-        <li>
-          <a href="#">Russian</a>
-        </li>
-        <li>
-          <a href="#">Portuguese</a>
-        </li>
+        {supportedLanguages.map((lang) => (
+          <li key={lang.code}>
+            <a 
+              href="#" 
+              onClick={(e) => {
+                e.preventDefault();
+                handleLanguageClick(lang.code);
+              }}
+              className={currentLanguage === lang.code ? 'active' : ''}
+            >
+              {lang.nativeName}
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   );

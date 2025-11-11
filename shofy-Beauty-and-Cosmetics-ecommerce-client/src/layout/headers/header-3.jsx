@@ -13,6 +13,7 @@ import OffCanvas from '@/components/common/off-canvas';
 import CartMiniSidebar from '@/components/common/cart-mini-sidebar';
 import useCartInfo from '@/hooks/use-cart-info';
 import { openCartMini } from '@/redux/features/cartSlice';
+import LanguageSwitcher from '@/components/common/LanguageSwitcher';
 
 const HeaderThree = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -45,6 +46,9 @@ const HeaderThree = () => {
                 </div>
                 <div className="col-xl-2 col-lg-2 col-6">
                   <div className="tp-header-action d-flex align-items-center justify-content-end ml-50">
+                    <div className="tp-header-action-item d-none d-sm-block">
+                      <LanguageSwitcher />
+                    </div>
                     <div className="tp-header-action-item d-none d-sm-block">
                       <button onClick={() => setIsSearchOpen(true)} type="button" className="tp-header-action-btn tp-search-open-btn">
                         <Search />
